@@ -1,0 +1,9 @@
+#!/bin/bash
+JULIA=/home/nhornek/julia-1.8.2/bin/julia
+if [[ ${JULIA_TRACE_COMPILE} = "1" ]]; then
+    exec ${JULIA} --trace-compile=/home/nhornek/nvim-lspconfig/packagecompiler/precompile_statements.jl "$@"
+elif [[ -f /home/nhornek/nvim-lspconfig/languageserver.so ]]; then
+    exec ${JULIA} --sysimage=/home/nhornek/nvim-lspconfig/languageserver.so "$@"
+else
+    exec ${JULIA} "$@"
+fi
